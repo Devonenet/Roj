@@ -1,62 +1,54 @@
 # ROJ Content Hub
 
-A responsive creative-agency landing page for ROJ Content Hub, Ikota Villa, Lekki, Lagos. Built with Next.js App Router, React, TypeScript, Tailwind CSS and GSAP. The first release is a static export: no database, paid backend or API keys are required.
+A multi-page creative production website for ROJ Content Hub, Ikota Villa, Lekki, Lagos. Built with Next.js App Router, React, TypeScript, Tailwind CSS and GSAP. It exports a static site: no database or paid backend is required. Enquiries use WhatsApp.
 
 ## Run locally
 
-Use Node.js 22.18+ and npm. The project lockfile records exact dependency versions.
+Use Node.js 22.18+ and npm. The lockfile records dependency versions.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:3100. Port 3100 avoids other local projects on port 3000.
+Open http://127.0.0.1:3100. Validate with `npm run lint`, `npm run typecheck`, `npm test`, `npm run format:check` and `npm run build`. After building, run `npm run verify:export` to check every exported page, local link, image reference and demo-indexing flag.
 
-```sh
-npm run lint
-npm run typecheck
-npm test
-npm run format:check
-npm run build
-```
+The build uses Webpack and generates `out/`. Every page exports as a directory with an `index.html`, so deep links work on ordinary static hosts. To preview the production export, run `python3 -m http.server 3101 --bind 127.0.0.1 --directory out`. Do not use `next start` with a static export.
 
-`npm run build` uses Webpack because Turbopack's build worker encountered a port permission error in this environment. The generated `out/` directory can be hosted on any static host. To preview an export locally: `python3 -m http.server 3101 --bind 127.0.0.1 --directory out`. Do not use `next start` for a static export.
+## Pages and content
 
-## Content and contact details
+- `/`: homepage with the existing interactive CSS 3D hero, service links and journal previews.
+- `/about/`: company story, creator/brand audiences and production process.
+- `/services/`: service directory. `/services/[slug]/` provides six individual service pages.
+- `/studio/`: a scroll-driven perspective gallery of six supplied studio photos, booking enquiries and FAQs.
+- `/work/`: clearly labelled demo project concepts, using actual ROJ space photos. These are not claimed client projects or results.
+- `/contact/`: WhatsApp, phone, Instagram, project brief dialog and Google Maps.
+- `/blog/`: searchable, category-filtered journal. `/blog/[slug]/` provides three full demo articles with contents links and related reading.
 
-- `src/components/landing-page.tsx`: page content, services, FAQs and enquiry dialog.
-- `src/components/hardware-stack.tsx`: responsive 3D hero plates; motion is scoped in `src/components/use-hero-motion.ts`.
-- `src/app/globals.css`: responsive layout, brand colors and motion preferences.
-- `src/lib/enquiry.ts`: approved Instagram and WhatsApp destinations; validation and message encoding.
-- `public/brand/`: original user-provided artwork and brand references.
-- `public/images/`: downloaded reference photography.
-- `Asset/images/`: optimized supplied photos and preserved originals.
-- `public/Asset/images/`: browser-served copies of the optimized photos.
+`src/components/site-shell.tsx` owns the shared header, footer and enquiry dialog. Server-rendered page content lives in `src/app/`; reusable editorial components live in `src/components/`. `src/content/services.ts` and `src/content/posts.ts` hold service and article content. Add a post with a unique slug, category, excerpt, photo, date, service and sections, then rebuild: its route is generated automatically.
 
-The form validates a name, service and short brief, then opens a prefilled WhatsApp conversation with **+234 706 281 9883**. The visitor must send the message themselves. Nothing is stored or submitted to a backend, and no session is automatically booked. Instagram links point to **@rojcontenthub**. No invented pricing, client logos, testimonials or portfolio claims are included.
+The enquiry form validates a name, service and brief, then opens a prefilled conversation with **+234 706 281 9883**. The visitor reviews and sends the message in WhatsApp. No booking, payment or backend submission happens automatically. Instagram points to **@rojcontenthub**.
 
-The current visual system follows the supplied Vertex Platform guide in `design.md`, with explicit ROJ overrides: black and white, brand orange `#F44606`, locally hosted Inter headings, Playfair Display body copy and JetBrains Mono labels. The guide's referenced HTML was not supplied, so the composition interprets its written direction. Original and previous design references are preserved in `Asset/design/`.
+## SEO and launch configuration
 
-The redesign includes a split hero with an extruded CSS 3D stack inspired by the supplied screenshot, two audience columns, a two-column service accordion, paired image showcases, and a centered contact section. GSAP handles a 950ms hero entrance, eased pointer tilt (up to 6° vertically and 8° horizontally), a restrained magnetic primary CTA, and reversible scroll-linked layer separation without pinning. Separate transform layers prevent entrance, pointer and scroll effects from competing. Pointer tracking runs only on fine hover devices; cached geometry and finite tweens avoid a continuous render loop. Existing image reveals and marquee movement remain. All motion honors reduced-motion preferences. No WebGL runtime or paid service is needed.
+Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the final public origin before building for deployment. Page titles, descriptions, Open Graph metadata, canonical URLs, `robots.txt` and `sitemap.xml` are generated centrally. If the domain is unset, canonicals and the sitemap URL are omitted and the sitemap is empty; no placeholder domain is published.
 
-## Image sources
+Articles are intentionally marked `demo: true`, labelled as demo content and served with `noindex, follow`. They are excluded from the sitemap. Review and approve the copy, set the real publication date and change `demo` to `false` to enable indexing and BlogPosting structured data. No SEO ranking outcomes are promised.
 
-The hero, film/podcast/music service panels and work showcase now use supplied ROJ courtyard and studio photos. Source files are preserved in `Asset/images/originals/`; optimized, correctly oriented WebP versions live in `Asset/images/` and are copied to `public/Asset/images/` for static hosting. Public copies omit embedded source metadata. See `Asset/images/README.md` for the source-to-slot mapping.
+The confirmed address is **House 16B, Road 13, Ikota Villa, Lekki, Lagos**. `src/lib/site.ts` configures the address-based Google Maps embed and directions link, plus a WhatsApp request for arrival guidance. No GPS coordinates or Google business place ID have been invented. Update the address, map query and directions together if the business moves. The map links follow [Google Maps URL documentation](https://developers.google.com/maps/documentation/urls/get-started).
 
-The photography service and inline camera image still use `camera-detail.jpg` as a visual reference. The remaining Unsplash files are retained for provenance but are no longer displayed. The logo is preserved as supplied.
+## Visual system and assets
 
-- `recording-studio.jpg`: https://images.unsplash.com/photo-1598488035139-bdbb2231ce04
-- `studio-camera.jpg`: https://images.unsplash.com/photo-1492691527719-9d1e07e534b4
-- `camera-detail.jpg`: https://images.unsplash.com/photo-1516035069371-29a1b244cc32
-- `microphone.jpg`: https://images.unsplash.com/photo-1478737270239-2f02b77fc618
+The supplied Vertex guide in `design.md` is adapted to ROJ orange `#F44606`, black and white. Fonts are locally hosted Inter, Playfair Display and JetBrains Mono. The original ROJ logo is preserved. The homepage retains the layered CSS hardware sculpture, GSAP entrance, pointer tilt and reversible scroll motion. Motion respects reduced-motion preferences; pointer effects only run on fine hover devices.
 
-## Next phase: payments and dashboard
+The shared header uses `src/components/ui/liquid-glass-navbar.tsx`, adapted from the supplied Nimbus Waterline component with its author attribution retained. It uses ROJ orange refraction, route-aware Next.js links, keyboard focus navigation and a CSS fallback when WebGL is unavailable. The renderer pauses when hidden, responds to reduced-motion preferences and releases GPU resources on cleanup. Mobile navigation uses a matching glass panel with visible labels; navigation is silent. No new package dependencies are required.
 
-Paystack and the dashboard are intentionally deferred. Before adding them, move from static export to server-capable Next.js hosting. Add authenticated dashboard access, server-side payment initialization and verification, signed webhook validation, idempotent transaction processing and persistent transaction records. Keep secret keys in server environment variables; never expose them to the browser or store them in client storage. Confirm pricing, deposits, cancellation terms and payment ownership with the business before enabling charges.
+The studio gallery lives in `src/components/ui/animated-gallery.tsx`; its images, captions and crops are configured in `src/components/studio-showcase.tsx`. It adapts the supplied gallery reference to the existing GSAP runtime, with no additional animation or button dependencies. Desktop scrolling unfolds the three-column gallery and moves its columns in opposite directions. Small screens, short viewports and reduced-motion preferences use a static gallery without sticky scroll space.
 
-## Verification
+All page photography uses supplied ROJ images. Originals remain in `Asset/images/originals/`; optimized copies live in `Asset/images/` and `public/Asset/images/`. Public copies omit source metadata. Original design references are retained in `Asset/design/`. Old reference photographs remain in `public/images/` for provenance but are not displayed.
 
-`npm test` uses Node's built-in test runner for destination correctness, message encoding, required-field validation and length limits. Browser checks cover desktop/mobile layout, dialog behavior, navigation, services and FAQs. Motion is disabled for visitors who request reduced motion.
+## Validation and future work
 
-Installation reported five development-tool advisories through ESLint's transitive `braces` dependency. The suggested npm fix downgrades the Next.js lint configuration by two major versions, so it is not applied blindly. `npm audit --omit=dev` reported zero production dependency vulnerabilities during verification. Recheck `npm audit` when updating dependencies.
+`npm test` covers enquiry validation and encoding. Check desktop/mobile layouts, keyboard navigation, blog filtering, route changes, dialog focus restoration and the map before publishing. No live test messages or payments should be sent.
+
+Paystack and its dashboard remain a future phase. They require server-capable hosting, authentication, server-side payment verification, signed webhooks, idempotency and persistent transaction records. Confirm pricing and booking terms before enabling charges. Publishing or pushing a new release requires an explicit request.

@@ -4,15 +4,16 @@ Whatever action you can do yourself, please do yourself, this includes starting 
 
 ## Project Scope & Current State
 
-ROJ Content Hub is a creative content and digital media company in Ikota, Lekki, Lagos. The first milestone is a professional agency landing page with hero, about, services, portfolio, and contact sections, supported by clear calls to action. Future work includes Paystack payments and an expandable dashboard for payment settings and transactions.
+ROJ Content Hub is a creative content and digital media company in Ikota, Lekki, Lagos. The site has Home, About, Services, Studio, Work, Contact and Blog routes, including service detail pages and demo articles. Future work includes Paystack payments and an expandable dashboard for payment settings and transactions.
 
-The landing page uses Next.js, React, TypeScript, Tailwind CSS and GSAP. It exports a static site; WhatsApp handles enquiries. Favor low initial costs and maintainable architecture.
+The website uses Next.js, React, TypeScript, Tailwind CSS and GSAP. It exports a static site; WhatsApp handles enquiries. Favor low initial costs and maintainable architecture.
 
 ## Project Structure & Module Organization
 
-- `src/app/`: App Router entry point, metadata and global styles.
-- `src/components/`: landing page and interactive controls.
-- `src/lib/`: enquiry validation and approved contact destinations.
+- `src/app/`: App Router pages, metadata, sitemap, robots and global styles.
+- `src/components/`: shared shell, hero, page components and interactive controls.
+- `src/content/`: editable services and articles.
+- `src/lib/`: enquiries, contact destinations, location and SEO configuration.
 - `public/brand/`: supplied artwork; `public/images/`: reference photography.
 - `Asset/images/`: supplied photos, with originals in `originals/`; `public/Asset/images/`: optimized web copies.
 - `tests/`: Node test-runner tests named `*.test.ts`.
@@ -32,8 +33,8 @@ Test meaningful behavior, especially enquiry encoding and validation. No numeric
 
 ## Commit & Pull Request Guidelines
 
-There is no Git history establishing conventions. Use concise imperative messages, optionally prefixed with `feat:`, `fix:`, or `docs:`. PRs should explain the change, link relevant issues, list validation, and include screenshots for visual changes.
+Use concise imperative commit messages, following the initial commit’s prefix style: `feat:`, `fix:`, or `docs:`. PRs should explain the change, link relevant issues, list validation, and include screenshots for visual changes.
 
 ## Security & Agent Instructions
 
-Paystack and the dashboard remain future work. Keep future secret keys server-side and out of Git; verify payments server-side and authenticate dashboard access. Preserve supplied artwork. Do not present reference photography as completed ROJ work. Use the selected `gpt-taste` skill and do not use Sites. Publishing requires an explicit request.
+Paystack and the dashboard remain future work. Keep future secret keys server-side and out of Git; verify payments server-side and authenticate dashboard access. Preserve supplied artwork. Label demo projects and articles; demo posts stay noindex until approved. Configure the real domain before deployment. Confirm the exact office pin before claiming precise directions. Use the selected `gpt-taste` skill and do not use Sites. Publishing requires an explicit request.

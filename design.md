@@ -83,3 +83,7 @@ If the source includes canvas, WebGL, Three.js, gradients, particles, or atmosph
 - Pair Inter display text with locally hosted Playfair Display body copy and JetBrains Mono labels.
 - Use the supplied 3D stack screenshot (`Asset/design/vertex-3d-stack-reference.png`) as the hero visual reference. Dark rounded plates have ROJ-orange edges. CSS perspective and GSAP provide actual layered depth, a subtle entrance, eased hero-relative pointer tilt and reversible scroll-linked separation. Keep native scrolling without pinning. Use independent transform layers and disable motion for reduced-motion preferences; pointer effects are restricted to fine hover devices.
 - Honor reduced-motion settings. Enquiries continue through the existing WhatsApp handoff; payments remain a future phase.
+
+## Multi-page expansion
+
+Retain the current homepage hero, typography and brand palette. Use shared navigation and enquiry controls across About, Services, Studio, Work, Contact and Blog routes. Editorial page introductions, large supplied photographs, readable article columns and restrained page entrances extend the existing design. Demo work and articles must be identified. Google Maps uses the supplied address: House 16B, Road 13, Ikota Villa, Lekki, Lagos.
