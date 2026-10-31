@@ -35,6 +35,8 @@ Test meaningful behavior, especially enquiry encoding and validation. No numeric
 
 Use concise imperative commit messages, following the initial commit’s prefix style: `feat:`, `fix:`, or `docs:`. PRs should explain the change, link relevant issues, list validation, and include screenshots for visual changes.
 
+This is a single-branch repository: commit and push all work directly to `main`, and do not create or leave other branches. Author and commit as `njokusomto <njokusomto@gmail.com>`. Do not add AI co-author, session or "Generated with" lines to commits or PRs.
+
 ## Security & Agent Instructions
 
 Paystack and the dashboard remain future work. Keep future secret keys server-side and out of Git; verify payments server-side and authenticate dashboard access. Preserve supplied artwork. Label demo projects and articles; demo posts stay noindex until approved. Configure the real domain before deployment. Confirm the exact office pin before claiming precise directions. Use the selected `gpt-taste` skill and do not use Sites. Publishing requires an explicit request.
