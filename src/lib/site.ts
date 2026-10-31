@@ -17,11 +17,15 @@ export const location = {
 export function absoluteUrl(path: string) {
   return siteUrl ? new URL(path, `${siteUrl}/`).href : undefined;
 }
+// Default link preview: courtyard photo, dark overlay and ROJ icon.
+// Regenerate with `node scripts/generate-og-image.mjs`.
+const defaultShareImage = "/og-image.jpg";
+
 export function pageMetadata(
   title: string,
   description: string,
   path: string,
-  image = "/Asset/images/roj-courtyard.webp",
+  image = defaultShareImage,
   demo = false,
 ): Metadata {
   const canonical = absoluteUrl(path);
@@ -37,7 +41,20 @@ export function pageMetadata(
       type: "website",
       locale: "en_NG",
       ...(canonical ? { url: canonical } : {}),
-      ...(imageUrl ? { images: [{ url: imageUrl }] } : {}),
+      ...(imageUrl
+        ? {
+            images: [
+              image === defaultShareImage
+                ? {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: "ROJ Content Hub",
+                  }
+                : { url: imageUrl },
+            ],
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
