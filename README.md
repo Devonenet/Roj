@@ -37,6 +37,16 @@ Articles are intentionally marked `demo: true`, labelled as demo content and ser
 
 The confirmed address is **House 16B, Road 13, Ikota Villa, Lekki, Lagos**. `src/lib/site.ts` configures the address-based Google Maps embed and directions link, plus a WhatsApp request for arrival guidance. No GPS coordinates or Google business place ID have been invented. Update the address, map query and directions together if the business moves. The map links follow [Google Maps URL documentation](https://developers.google.com/maps/documentation/urls/get-started).
 
+## Deploy (Firebase Hosting)
+
+The site is hosted on Firebase project `rojhub-648fd` at https://rojhub-648fd.web.app (`firebase.json` serves `out/`). Sign in once with `firebase login` (or use a `FIREBASE_TOKEN`/service account in CI), then:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://rojhub-648fd.web.app npm run build && npm run verify:export && firebase deploy --only hosting
+```
+
+When a custom domain is connected, change `NEXT_PUBLIC_SITE_URL` to it and redeploy.
+
 ## Visual system and assets
 
 The supplied Vertex guide in `design.md` is adapted to ROJ orange `#F44606`, black and white. Fonts are locally hosted Inter, Playfair Display and JetBrains Mono. The original ROJ logo is preserved. The homepage retains the layered CSS hardware sculpture, GSAP entrance, pointer tilt and reversible scroll motion. Motion respects reduced-motion preferences; pointer effects only run on fine hover devices.
